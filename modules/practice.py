@@ -1,5 +1,0 @@
-cap = "cap_chown,cap_dac_override,cap_dac_read_search,cap_fowner,cap_setgid,cap_setuid,cap_sys_chroot,cap_sys_ptrace,cap_sys_admin"
-listcap = cap.split(",")
-var = "cap_chown"
-array = var.split(",")
-print(len((array)))

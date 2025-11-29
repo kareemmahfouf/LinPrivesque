@@ -39,7 +39,6 @@ def run():
                 cleaned_caps.append(cap)
             else:
                 cleaned_caps.append(cap)
-        # print(f"PATH: {path}\nCAPS: {capabilities}")
 
         entry = {
             "path": path,
@@ -67,7 +66,5 @@ def run():
         "writable_capability_dirs": writable_capability_dirs,
         "non_root_owned_capability_binaries": non_root_owned_capability_bins
     }
-    print(return_info)
 
-
-run()
+    return return_info
