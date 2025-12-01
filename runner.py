@@ -16,7 +16,9 @@ def run_all():
         module = importlib.import_module(f"modules.{file}")  # dynamic import 
         if(hasattr(module, "run")):
             results[f"{file}"] = module.run()
+            results[f"separation{file}"] = "--------------------------------------------------------------"
         else:
             continue
-    
+    print(results.keys())
     return results
+run_all()
