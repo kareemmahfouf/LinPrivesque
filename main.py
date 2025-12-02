@@ -1,34 +1,50 @@
 import runner
+from rich import print
+from rich.prompt import Prompt
+from rich.console import Console
+from rich.style import Style
+import time
 
 __version__ = "1.0.0"
 
 def main():
 
-    message = rf"""  _____      _            _______           _                                                
+    message1 = rf"""  _____      _            _______           _                                                
  |_   _|    (_)          |_   __ \         (_)                                               
    | |      __   _ .--.    | |__) |_ .--.  __  _   __  .---.  .--.   .--. _  __   _   .---.  
    | |   _ [  | [ `.-. |   |  ___/[ `/'`\][  |[ \ [  ]/ /__\\( (`\]/ /'`\' ][  | | | / /__\\ 
   _| |__/ | | |  | | | |  _| |_    | |     | | \ \/ / | \__., `'.'.| \__/ |  | \_/ |,| \__., 
  |________|[___][___||__]|_____|  [___]   [___] \__/   '.__.'[\__) )\__.; |  '.__.'_/ '.__.' 
-                                                                        |__]  
-                                                                                       
- Welcome to LinPrivesque - A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis
- Version: {__version__}
+                                                                        |__]                                                                                         
+
 """
-    print(message)
+    console = Console()
+    message2 = f"Welcome to LinPrivesque - A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis\nVersion: {__version__}\n\n"
+    for char in message1:
+        console.print(char, end="")
+        time.sleep(0.0015)
+    
+    for char in message2:
+        console.print(char, end="", style="green1")
+        time.sleep(0.025)
 
-    # while True:
-    #     run_tool = input("Enter 'Y' if you would like to run LinPrevesque on your machine: ")
-    #     if run_tool:
-    #         break
+    message3 = "Enter 'Y' if you would like to run LinPrivesque on your machine: "
+    
+    while True:
+        for char in message3:
+            console.print(char, end="", style="green1")
+            time.sleep(0.025)
+        run_tool = console.input("").strip().capitalize()
+        if run_tool:
+            break
 
-    # if run_tool and run_tool=='Y':
-    #     results = runner.run_all()
-    #     print(results)
-    # else:
-    #     print("Goodbye.")
-    #     exit()
-    print(runner.run_all())
+    if run_tool and run_tool=='Y':
+        with console.status("Running LinPrivesque on your machine...\n", spinner="dots"):
+            results = runner.run_all()
+            console.print(results)
+    else:
+        console.print("Goodbye.", style="green1")
+        exit()
     # ADD: coloured cli, loading bar, selection for different modules to run, email report?, convenient and aesthetic results output
 
 if __name__ == "__main__":
