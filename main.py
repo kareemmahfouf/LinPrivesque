@@ -22,18 +22,18 @@ def main():
     message2 = f"Welcome to LinPrivesque - A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis\nVersion: {__version__}\n\n"
     for char in message1:
         console.print(char, end="")
-        time.sleep(0.0015)
+        time.sleep(0.0005)
     
     for char in message2:
         console.print(char, end="", style="green1")
-        time.sleep(0.025)
+        time.sleep(0.015)
 
     message3 = "Enter 'Y' if you would like to run LinPrivesque on your machine: "
-    
+
     while True:
         for char in message3:
             console.print(char, end="", style="green1")
-            time.sleep(0.025)
+            time.sleep(0.015)
         run_tool = console.input("").strip().capitalize()
         if run_tool:
             break
