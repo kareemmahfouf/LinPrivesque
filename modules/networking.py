@@ -147,13 +147,14 @@ def run():
     arp_lines = parse_cmd_output(raw_arp)
     for line in arp_lines:
         arp_entry = {
-            "ip": raw_arp.split()[0],
-            "mac": raw_arp.split()[4],
-            "interface": raw_arp.split()[2],
-            "state": raw_arp.split()[-1]
+            "ip": line.split()[0],
+            "mac": line.split()[4],
+            "interface": line.split()[2],
+            "state": line.split()[-1]
         }
         arp.append(arp_entry)
 
+    print(arp)
     return {
         "info": {
             "interfaces": network_interfaces,
@@ -166,3 +167,4 @@ def run():
         },
         "risks": []
     }
+run()
