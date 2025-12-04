@@ -154,7 +154,6 @@ def run():
         }
         arp.append(arp_entry)
 
-    print(arp)
     return {
         "info": {
             "interfaces": network_interfaces,
