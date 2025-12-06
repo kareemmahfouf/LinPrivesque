@@ -95,11 +95,11 @@ def run():
     
     # user cron info
     raw_crontab = run_cmd("crontab -l 2>/dev/null")
+    risks = []
     user_cron_info = {
         "crontab_exists": False,
         "environment_vars": {},
-        "jobs": [],
-        "warnings": []
+        "jobs": []
     }
     if raw_crontab:
         user_cron_info["crontab_exists"] = True
@@ -127,10 +127,10 @@ def run():
                     for entry in entries:
                         expanded = os.path.expandvars(entry)                       
                         if not os.path.exists(expanded):
-                            user_cron_info["warnings"].append(f"PATH entry does not exist: {entry}")
+                            risks.append(f"Nonexistent PATH entry {entry} in crontab - bad actor can create it to hijack execution")
                         else:
                             if is_writable(expanded):
-                                user_cron_info["warnings"].append(f"Writable PATH directory in crontab - {expanded}")
+                                risks.append(f"Writable PATH directory {expanded} in crontab - bad actor can hijack cron job execution")
                 continue
             
             # parse generic cron jobs
@@ -151,9 +151,28 @@ def run():
         
     # RISKS
 
+    # writable cron files
+    for dir, info in system_cron_info.items():
+        for f in info["writable_files"]:
+            result["risks"].append(f"CRITICAL: System cron file {f} is world-writable - bad actor can execute arbitrary commands as root")
     
+    # sys cron file non root owned
+        for f in info["non_root_owned_files"]:
+            result["risks"].append(f"CRITICAL: System cron file {f} is not root-owned - privilege escalation possible")
 
+    # cron dir is writable
+    for dir in system_cron_info:
+        if is_writable(dir):
+            result["risks"].append(f"CRITICAL: Cron directory {dir} is writable - bad actor can add persistent root-performed jobs")
 
+    # cron job uses relative path
+    for job in user_cron_info["jobs"]:
+        if not job["absolute"]:
+            result["risks"].append(f"Cron job {job['command']} uses a relative path {job['binary']} - vulnerable to PATH hijacking")
 
+    # collect other risks
+    for warning in risks:
+        result["risks"].append(warning)
 
     return result
+

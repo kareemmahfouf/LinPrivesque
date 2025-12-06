@@ -1,5 +1,5 @@
 from utils import run_cmd, parse_cmd_output, get_file_owner
-
+from rich import print
 def run():
 
     # Relevant world-writable directories
@@ -29,7 +29,7 @@ def run():
             fowner = get_file_owner(file) 
             if fowner and fowner == "root":
                 world_writable_root_owned_files[dir].append(file)
-    return{
+    result = {
         "info": {
             "world_writable_dirs": world_writable_dirs,
             "world_writable_files": world_writable_files,
@@ -38,3 +38,24 @@ def run():
         "risks": []
     }
 
+    # RISKS 
+
+    # world-writable dirs
+    for d in world_writable_dirs:
+        if d in ["/etc", "/usr/bin", "/usr/sbin", "/bin", "/sbin"]:
+            result["risks"].append(f"CRITICAL: Core directory {d} is world-writable - system is fully compromiseable")
+        else:
+            result["risks"].append(f"World-writable directory found: {d}")
+
+    # world-writable root owned files
+    for dir, files in world_writable_root_owned_files.items():
+        for f in files:
+            result["risks"].append(f"Root-owned file {f} is world-writable - privilege escalation possible")
+
+    # writable file inside security-sensitive dir
+    for dir, files in world_writable_files.items():
+        if "systemd" in dir or "init.d" in dir:
+            for f in files:
+                result["risks"].append(f"Startup script {f} is world-writable — attackers can maintain persistence.")
+
+    return result

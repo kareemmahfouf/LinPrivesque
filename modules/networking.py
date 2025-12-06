@@ -1,5 +1,5 @@
 from utils import run_cmd, parse_cmd_output
-
+from rich import print
 def run():
     # collect network interfaces
     network_interfaces = []
@@ -146,15 +146,22 @@ def run():
     raw_arp = run_cmd("ip neigh")
     arp_lines = parse_cmd_output(raw_arp)
     for line in arp_lines:
-        arp_entry = {
-            "ip": line.split()[0],
-            "mac": line.split()[4],
-            "interface": line.split()[2],
-            "state": line.split()[-1]
-        }
+        if len(line.split()) > 4:
+            arp_entry = {
+                "ip": line.split()[0],
+                "mac": line.split()[4],
+                "interface": line.split()[2],
+                "state": line.split()[-1]
+            }
+        else:
+            arp_entry = {
+                "ip": line.split()[0],
+                "interface": line.split()[2],
+                "state": line.split()[-1]
+            }
         arp.append(arp_entry)
 
-    return {
+    result = {
         "info": {
             "interfaces": network_interfaces,
             "ip_addresses": ip_addresses,
@@ -166,4 +173,32 @@ def run():
         },
         "risks": []
     }
-run()
+
+    # RISKS 
+
+    # exposed listening services
+    for svc in listening:
+        local = svc["local"].split(":")[0]
+
+        if local == "0.0.0.0":
+            result["risks"].append(f"Service listening on all interfaces: {svc['local']} ({svc.get('process','unknown')})")
+        elif local not in ("127.0.0.1", "::1"):
+            result["risks"].append(f"Service exposed on network interface {local}: {svc['local']} ({svc.get('process','unknown')})")
+
+    # DNS risks
+    def is_private_ipv4(ip):
+        return (
+            ip.startswith("10.") or
+            ip.startswith("192.168.") or
+            ip.startswith("172.") and 16 <= int(ip.split(".")[1]) <= 31
+        )
+    for ns in dns_info.get("nameservers", []):
+        if ns not in ("127.0.0.1", "127.0.0.53") and not is_private_ipv4(ns):
+            result["risks"].append(f"External DNS resolver detected: {ns} — DNS traffic may be intercepted.")
+
+    for domain in dns_info.get("search_domains", []):
+        if "." in domain and not domain.endswith(".local"):
+            result["risks"].append(f"Search domain '{domain}' reveals internal network naming — may leak sensitive queries.")
+
+    return result
+

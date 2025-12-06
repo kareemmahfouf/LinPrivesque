@@ -73,7 +73,7 @@ def run():
     # RISKS
     # dangerous caps assigned to any binary
     for cap_entry in dangerous_capabilites:
-        return_info["risks"].append(f"Binary {cap_entry['path']} has dangerous capabilities: {cap_entry["capabilities"]}")
+        return_info["risks"].append(f"Binary {cap_entry['path']} has dangerous capabilities: {cap_entry['capabilities']}")
 
     # capability binary is writable
     for writable in writable_capability_bins:
