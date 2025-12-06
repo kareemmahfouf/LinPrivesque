@@ -79,7 +79,7 @@ def run():
                     if binary in GTFO_BINS:
                         potential_escapes.append(clean_cmd)
 
-    return {
+    result = {
         "info": {
             "can_sudo": can_sudo,
             "nopasswd": nopasswd,
@@ -89,4 +89,13 @@ def run():
         },
         "risks": []
     }
+
+    # RISKS
+    if can_sudo and nopasswd:
+        result["risks"].append("User can run sudo without a password — full compromise possible")
+
+    if "ALL" in allowed_commands:
+        result["risks"].append("User can run ALL commands via sudo — full root compromise")
+
+    return result
 

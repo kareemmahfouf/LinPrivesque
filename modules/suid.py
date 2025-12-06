@@ -23,7 +23,7 @@ def run():
         if get_file_owner(path) != "root":
             non_root_owned_suid.append(path)
     
-    return {
+    result = {
         "info": {
             "all_suid_bins": all_suid,
             "gtfo_suid_bins": gtfo_suid,
@@ -32,3 +32,19 @@ def run():
         },
         "risks": []
     }
+
+    # RISKS
+
+    # writable
+    for writable in writable_suid:
+        result["risks"].append(f"Writable SUID binary detected: {writable} — bad actor could replace it to gain root privileges")
+
+    # non root-owned
+    for non_root in non_root_owned_suid:
+        result["risks"].append(f"SUID binary not owned by root: {non_root} — owner can escalate to root.")
+
+    # gtfo bins suid
+    for gtfobin in gtfo_suid:
+        result["risks"].append(f"SUID binary {gtfobin} is in GTFOBins — known privilege escalation technique available")
+
+    return result

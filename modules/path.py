@@ -43,7 +43,7 @@ def run():
 
 
 
-   return {"info": {
+   result = {"info": {
       "all_entries": all_entries,
       "writable_entries": writable_entries,
       "nonexistent_entries": nonexistent_entries,
@@ -53,3 +53,28 @@ def run():
    "risks": []
    }
 
+   # RISKS
+
+   # writable
+   for writable in writable_entries:
+      result["risks"].append(f"Writable PATH entry detected: {writable} — may allow binary hijacking")
+
+   # user-level dirs before sys dirs
+   for path_entry in all_entries:
+    if path_entry.startswith("/home"):
+        result["risks"].append(f"User-level directory early in PATH: {entry} — consider moving after system directories.")
+
+   # writable dir before trusted dir
+   for entry_pair in dangerous_order:
+      result["risks"].append(f"Dangerous order - {entry_pair} - writable directory before trusted directory allows for PATH Hijacking")
+   
+
+   # empty entries
+   if empty_entries:
+      result["risks"].append(f"Empty PATH entry detected — '.' (current directory) is effectively in PATH.")
+
+   # non-existent entries
+   for nonexistent in nonexistent_entries:
+      result["risks"].append(f"Nonexistent PATH entry: {nonexistent} — bad actor could create this path to hijack execution")
+
+   return result

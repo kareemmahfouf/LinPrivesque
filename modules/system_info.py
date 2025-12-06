@@ -2,6 +2,14 @@ from utils import run_cmd, parse_cmd_output
 
 def run():
 
+    dangerous_groups = {
+    "sudo": "Full root escalation possible",
+    "adm": "Can read system logs, may leak sensitive information",
+    "docker": "Docker group members can escalate to root",
+    "lxd": "LXD group members can escalate to root",
+    "disk": "Can read/write raw disk"
+    }
+
     # kernel
     kernel = run_cmd("uname -r")
     
@@ -23,7 +31,7 @@ def run():
     hostname = run_cmd("hostname")
     user = run_cmd("whoami")
     groups = run_cmd("groups").split()
-
+    
     # path, uptime
     path = run_cmd("echo $PATH")
     uptime = run_cmd("uptime -p")
@@ -42,5 +50,11 @@ def run():
         },
         "risks":[]     # empty for now, add in later
     }
-    
+
+    # RISKS
+    for group in groups:
+        if group in dangerous_groups:
+            result["risks"].append(f"GROUPS - user in {group} - {dangerous_groups[group]}")
+
     return result
+

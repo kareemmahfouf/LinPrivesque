@@ -46,7 +46,7 @@ def run():
         case _:
             ptrace_status = "Unknown value"
             
-    return {
+    result = {
         "info": {
             "raw_kernel_info": raw_kernel,
             "vulnerabilities_searched_for": list(kernel_vuln_ranges),
@@ -56,3 +56,24 @@ def run():
         },
         "risks": []
     }
+
+    # RISKS
+    # aslr
+    if aslr == 0:
+        result["risks"].append("ASLR is disabled — memory corruption exploits are significantly easier")
+    elif aslr == 1:
+        result["risks"].append("ASLR is set to partial — consider enabling full ASLR (value 2)")
+    
+    # ptrace 
+    if ptrace == 0:
+        result["risks"].append("ptrace_scope is 0 — processes can debug each other, enabling credential theft")
+    
+    # kernel exploits
+    if len(result["info"]["vulnerabilities_found"]) > 1:
+        for vbility in result["info"]["vulnerabilities_found"]:
+            if vbility == result["info"]["vulnerabilities_found"][0]:
+                continue
+            result["risks"].append(f"Kernel version {raw_kernel} is vulnerable to the {vbility} exploit")
+
+    return result
+

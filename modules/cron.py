@@ -141,7 +141,7 @@ def run():
                 parsed_cron = parse_cron_cmd(schedule, command)
                 user_cron_info["jobs"].append(parsed_cron) 
     
-    return {
+    result = {
         "info": {
             "system_cron": system_cron_info,
             "user_cron": user_cron_info
@@ -149,3 +149,11 @@ def run():
         "risks": []
     }
         
+    # RISKS
+
+    
+
+
+
+
+    return result
