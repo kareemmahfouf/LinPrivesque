@@ -77,15 +77,15 @@ def run():
 
     # capability binary is writable
     for writable in writable_capability_bins:
-        return_info["risks"].append(f"Capability binary {writable['path']} is writable — bad actor can replace it to gain root")
+        return_info["risks"].append(f"Capability binary {writable['path']} is writable — could be replaced to gain root")
     
     # capability binary is in a writable directory
     for writable_dir in writable_capability_dirs:
         dir_path = os.path.dirname(writable_dir["path"])
-        return_info["risks"].append(f"Directory {dir_path} containing capability binary {writable_dir['path']} is writable — very high privilege escalation risk.")
+        return_info["risks"].append(f"Directory {dir_path} containing capability binary {writable_dir['path']} is writable — very high privilege escalation risk")
 
     # capability binary non root-owned
     for non_root in non_root_owned_capability_bins:
-        return_info["risks"].append(f"Capability binary {non_root['path']} is owned by {non_root['owner']}, not root — bad actor may modify or replace it.")
+        return_info["risks"].append(f"Capability binary {non_root['path']} is owned by {non_root['owner']}, not root — may be replaced or modified")
 
     return return_info

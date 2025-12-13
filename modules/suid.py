@@ -7,7 +7,7 @@ def run():
     all_suid = []
     gtfo_suid = []
     writable_suid = []
-    non_root_owned_suid = []
+    root_owned_suid = []
     raw_suid = run_cmd("find / -perm -4000 -type f 2>/dev/null")
     paths = parse_cmd_output(raw_suid)
 
@@ -20,15 +20,15 @@ def run():
             gtfo_suid.append(path)
         if is_writable(path):
             writable_suid.append(path)
-        if get_file_owner(path) != "root":
-            non_root_owned_suid.append(path)
+        if get_file_owner(path) == "root":
+            root_owned_suid.append(path)
     
     result = {
         "info": {
             "all_suid_bins": all_suid,
             "gtfo_suid_bins": gtfo_suid,
             "writable_suid_bins": writable_suid,
-            "non_root_owned_suid_bins": non_root_owned_suid
+            "root_owned_suid_bins": root_owned_suid
         },
         "risks": []
     }
@@ -37,11 +37,13 @@ def run():
 
     # writable
     for writable in writable_suid:
-        result["risks"].append(f"Writable SUID binary detected: {writable} — bad actor could replace it to gain root privileges")
+        result["risks"].append(f"Writable SUID binary detected: {writable} — could edit it to gain root privileges")
 
     # non root-owned
-    for non_root in non_root_owned_suid:
-        result["risks"].append(f"SUID binary not owned by root: {non_root} — owner can escalate to root.")
+    for root in root_owned_suid:
+        gtfobinary = root.split("/")[-1] 
+        if gtfobinary in GTFO_BINS:
+            result["risks"].append(f"SUID binary owned by root: {root} — may allow direct root privilege escalation")
 
     # gtfo bins suid
     for gtfobin in gtfo_suid:

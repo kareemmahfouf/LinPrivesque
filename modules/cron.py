@@ -127,10 +127,10 @@ def run():
                     for entry in entries:
                         expanded = os.path.expandvars(entry)                       
                         if not os.path.exists(expanded):
-                            risks.append(f"Nonexistent PATH entry {entry} in crontab - bad actor can create it to hijack execution")
+                            risks.append(f"Nonexistent PATH entry {entry} in crontab - could be create to hijack execution")
                         else:
                             if is_writable(expanded):
-                                risks.append(f"Writable PATH directory {expanded} in crontab - bad actor can hijack cron job execution")
+                                risks.append(f"Writable PATH directory {expanded} in crontab - cron job execution could be hijacked")
                 continue
             
             # parse generic cron jobs
@@ -154,7 +154,7 @@ def run():
     # writable cron files
     for dir, info in system_cron_info.items():
         for f in info["writable_files"]:
-            result["risks"].append(f"CRITICAL: System cron file {f} is world-writable - bad actor can execute arbitrary commands as root")
+            result["risks"].append(f"CRITICAL: System cron file {f} is world-writable - could execute arbitrary commands as root")
     
     # sys cron file non root owned
         for f in info["non_root_owned_files"]:
@@ -163,7 +163,7 @@ def run():
     # cron dir is writable
     for dir in system_cron_info:
         if is_writable(dir):
-            result["risks"].append(f"CRITICAL: Cron directory {dir} is writable - bad actor can add persistent root-performed jobs")
+            result["risks"].append(f"CRITICAL: Cron directory {dir} is writable - could add persistent root-performed jobs")
 
     # cron job uses relative path
     for job in user_cron_info["jobs"]:

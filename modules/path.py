@@ -62,7 +62,7 @@ def run():
    # user-level dirs before sys dirs
    for path_entry in all_entries:
     if path_entry.startswith("/home"):
-        result["risks"].append(f"User-level directory early in PATH: {entry} — consider moving after system directories.")
+        result["risks"].append(f"User-level directory early in PATH: {entry}")
 
    # writable dir before trusted dir
    for entry_pair in dangerous_order:
@@ -71,10 +71,10 @@ def run():
 
    # empty entries
    if empty_entries:
-      result["risks"].append(f"Empty PATH entry detected — '.' (current directory) is effectively in PATH.")
+      result["risks"].append(f"Empty PATH entry detected — '.' (current directory) is effectively in PATH")
 
    # non-existent entries
    for nonexistent in nonexistent_entries:
-      result["risks"].append(f"Nonexistent PATH entry: {nonexistent} — bad actor could create this path to hijack execution")
+      result["risks"].append(f"Nonexistent PATH entry: {nonexistent} — path may be created to hijack execution")
 
    return result

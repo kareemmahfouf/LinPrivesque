@@ -10,7 +10,7 @@ GTFO_BINS = [                       # common gtfobins, NOT ALL of them
     "tar", "cp", "mv", "tee",
     "curl", "wget",
     "rsync", "socat", "openssl",
-    "env", 
+    "env", "python3.12"
 ]
 
 def run_cmd(command):

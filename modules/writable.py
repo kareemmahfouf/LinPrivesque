@@ -56,6 +56,6 @@ def run():
     for dir, files in world_writable_files.items():
         if "systemd" in dir or "init.d" in dir:
             for f in files:
-                result["risks"].append(f"Startup script {f} is world-writable — attackers can maintain persistence.")
+                result["risks"].append(f"Startup script {f} is world-writable — avenue to maintain persistence")
 
     return result
