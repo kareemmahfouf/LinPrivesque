@@ -50,6 +50,7 @@ LinPrivesque is divided into modular checks.
 Each module returns:
 
 {
+    
   "info": { ... },
 
   "risks": [ ... ]
