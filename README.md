@@ -7,7 +7,7 @@ It is designed for learning, auditing, and defensive validation, with readable J
 
 ## ⚠️ Important Disclaimers
 
-1. Intended Use — Legal / Ethical Notice
+### 1. Intended Use — Legal / Ethical Notice
 
 LinPrivesque is designed only for defensive security, education, and authorised auditing.
 
@@ -16,14 +16,14 @@ Unauthorised enumeration can violate the UK Computer Misuse Act and institutiona
 
 The developer assumes no liability for misuse.
 
-2. Non-Destructive Enumeration Only
+### 2. Non-Destructive Enumeration Only
 
 LinPrivesque does not exploit vulnerabilities or modify protected system files.
 It reads publicly available data using safe system commands (find, ls, ip, ss, getcap, etc.).
 
 The tool may be noisy on very large filesystems but is otherwise safe.
 
-3. Sudo Behaviour — Please Read
+### 3. Sudo Behaviour — Please Read
 
 The sudo module begins with:
 
@@ -34,7 +34,7 @@ This does not elevate privileges and does not modify system configuration.
 
 If you rely on an active sudo session, be aware it will be cleared.
 
-4. Dependencies
+### 4. Dependencies
 
 LinPrivesque requires:
 
@@ -50,7 +50,7 @@ LinPrivesque is divided into modular checks.
 Each module returns:
 
 {
-    
+
   "info": { ... },
 
   "risks": [ ... ]
