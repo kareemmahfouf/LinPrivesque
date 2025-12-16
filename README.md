@@ -174,6 +174,7 @@ writable files under /etc/systemd or /etc/init.d (persistence risks)
 Clone the repository:
 
 git clone https://github.com/kareemmahfouf/LinPrivesque.git
+
 cd LinPrivesque
 
 
