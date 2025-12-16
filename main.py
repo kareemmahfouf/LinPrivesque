@@ -9,15 +9,17 @@ __version__ = "1.0.0"
 
 def main():
 
-    message1 = rf"""  _____      _            _______           _                                                
- |_   _|    (_)          |_   __ \         (_)                                               
-   | |      __   _ .--.    | |__) |_ .--.  __  _   __  .---.  .--.   .--. _  __   _   .---.  
-   | |   _ [  | [ `.-. |   |  ___/[ `/'`\][  |[ \ [  ]/ /__\\( (`\]/ /'`\' ][  | | | / /__\\ 
-  _| |__/ | | |  | | | |  _| |_    | |     | | \ \/ / | \__., `'.'.| \__/ |  | \_/ |,| \__., 
- |________|[___][___||__]|_____|  [___]   [___] \__/   '.__.'[\__) )\__.; |  '.__.'_/ '.__.' 
-                                                                        |__]                                                                                         
-
-"""
+    message1 = rf"""#################################################################################################
+## _____      _            _______           _                                                 ##
+## |_   _|    (_)          |_   __ \         (_)                                               ##
+##   | |      __   _ .--.    | |__) |_ .--.  __  _   __  .---.  .--.   .--. _  __   _   .---.  ##
+##   | |   _ [  | [ `.-. |   |  ___/[ `/'`\][  |[ \ [  ]/ /__\\( (`\]/ /'`\' ][  | | | / /__\\ ##
+##  _| |__/ | | |  | | | |  _| |_    | |     | | \ \/ / | \__., `'.'.| \__/ |  | \_/ |,| \__., ##
+## |________|[___][___||__]|_____|  [___]   [___] \__/   '.__.'[\__) )\__.; |  '.__.'_/ '.__.' ##
+##                                                                        |__]                 ##
+##                                                                                             ##
+## A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis                   ##
+#################################################################################################{"\n"}"""
     console = Console()
     message2 = f"Welcome to LinPrivesque - A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis\nVersion: {__version__}\n\n"
     for char in message1:
@@ -45,7 +47,6 @@ def main():
     else:
         console.print("Goodbye.", style="green1")
         exit()
-    # ADD: coloured cli, loading bar, selection for different modules to run, email report?, convenient and aesthetic results output
 
 if __name__ == "__main__":
     main()
