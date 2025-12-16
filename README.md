@@ -1,4 +1,4 @@
-LinPrivesque
+# LinPrivesque
 
 LinPrivesque is a modular Linux privilege-escalation enumeration framework written in Python.
 It performs systematic analysis across core attack surfaces — PATH, cron, SUID/SGID, sudo, capabilities, system configuration, kernel versioning, networking exposure, and world-writable locations — while generating structured risk assessments for each category.
@@ -51,7 +51,9 @@ Each module returns:
 
 {
   "info": { ... },
+
   "risks": [ ... ]
+  
 }
 
 Modules Included
