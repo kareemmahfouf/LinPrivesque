@@ -190,27 +190,6 @@ python3 main.py
 
 You will see an interactive prompt and formatted output for each module.
 
-📁 Project Structure
-LinPrivesque/
-│
-├── main.py
-├── runner.py
-├── utils.py
-│
-├── modules/
-│   ├── __init__.py
-│   ├── system_info.py
-│   ├── path.py
-│   ├── capabilities.py
-│   ├── sudo.py
-│   ├── suid.py
-│   ├── cron.py
-│   ├── kernel_info.py
-│   ├── networking.py
-│   ├── writable.py
-│
-└── README.md
-
 🧠 Design Philosophy
 
 Simple, modular architecture
