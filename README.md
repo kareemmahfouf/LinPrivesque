@@ -5,7 +5,7 @@ It performs systematic analysis across core attack surfaces — PATH, cron, SUID
 
 It is designed for learning, auditing, and defensive validation, with readable JSON-like output suitable for future reporting formats.
 
-⚠️ Important Disclaimers
+## ⚠️ Important Disclaimers
 
 1. Intended Use — Legal / Ethical Notice
 
@@ -44,7 +44,7 @@ rich (pip install rich)
 
 No other external packages are required.
 
-✨ Features
+## ✨ Features
 
 LinPrivesque is divided into modular checks.
 Each module returns:
@@ -53,11 +53,11 @@ Each module returns:
   "info": { ... },
 
   "risks": [ ... ]
-  
+
 }
 
 Modules Included
-✔ system_info
+### ✔ system_info
 
 Collects:
 
@@ -69,7 +69,7 @@ PATH value
 
 uptime
 
-✔ path
+### ✔ path
 
 Finds:
 
@@ -79,7 +79,7 @@ dangerous PATH ordering
 
 nonexistent PATH entries (hijackable locations)
 
-✔ capabilities
+### ✔ capabilities
 
 Enumerates Linux file capabilities:
 
@@ -91,7 +91,7 @@ identifies writable binaries and writable capability directories
 
 detects non-root-owned capability files
 
-✔ sudo
+### ✔ sudo
 
 Reports:
 
@@ -103,7 +103,7 @@ lists rules safely
 
 identifies escalation-relevant rules
 
-✔ suid
+### ✔ suid
 
 Checks:
 
@@ -115,7 +115,7 @@ non-root-owned privileged binaries
 
 potential GTFOBins escalation vectors
 
-✔ cron
+### ✔ cron
 
 Enumerates:
 
@@ -129,7 +129,7 @@ insecure PATH usage in crontab
 
 relative-path cron commands (PATH hijacking risk)
 
-✔ kernel_info
+### ✔ kernel_info
 
 Identifies:
 
@@ -141,7 +141,7 @@ ASLR settings
 
 ptrace_scope settings
 
-✔ networking
+### ✔ networking
 
 Extracts:
 
@@ -159,7 +159,7 @@ ARP table
 
 risks such as exposed services, internal DNS leakage, unusual outbound connections
 
-✔ writable
+### ✔ writable
 
 Finds:
 
@@ -171,7 +171,7 @@ world-writable root-owned files
 
 writable files under /etc/systemd or /etc/init.d (persistence risks)
 
-📦 Installation
+## 📦 Installation
 
 Clone the repository:
 
@@ -184,7 +184,7 @@ Install dependency:
 
 pip install rich
 
-▶️ Usage
+## ▶️ Usage
 
 Run from the project root:
 
@@ -193,7 +193,7 @@ python3 main.py
 
 You will see an interactive prompt and formatted output for each module.
 
-🧠 Design Philosophy
+## 🧠 Design Philosophy
 
 Simple, modular architecture
 
@@ -203,6 +203,6 @@ No exploitation, purely enumeration
 
 Designed as a personal project to apply my knowledge and learn more about PE in linux 
 
-📜 License
+## 📜 License
 
 MIT License — free to modify, improve, and distribute.
