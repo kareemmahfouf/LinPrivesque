@@ -1,14 +1,4 @@
-#################################################################################################
-## _____      _            _______           _                                                 ##
-## |_   _|    (_)          |_   __ \         (_)                                               ##
-##   | |      __   _ .--.    | |__) |_ .--.  __  _   __  .---.  .--.   .--. _  __   _   .---.  ##
-##   | |   _ [  | [ `.-. |   |  ___/[ `/'`\][  |[ \ [  ]/ /__\\( (`\]/ /'`\' ][  | | | / /__\\ ##
-##  _| |__/ | | |  | | | |  _| |_    | |     | | \ \/ / | \__., `'.'.| \__/ |  | \_/ |,| \__., ##
-## |________|[___][___||__]|_____|  [___]   [___] \__/   '.__.'[\__) )\__.; |  '.__.'_/ '.__.' ##
-##                                                                        |__]                 ##
-##                                                                                             ##
-## A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis                   ##
-#################################################################################################
+LinPrivesque
 
 LinPrivesque is a modular Linux privilege-escalation enumeration framework written in Python.
 It performs systematic analysis across core attack surfaces — PATH, cron, SUID/SGID, sudo, capabilities, system configuration, kernel versioning, networking exposure, and world-writable locations — while generating structured risk assessments for each category.
