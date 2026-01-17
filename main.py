@@ -18,9 +18,9 @@ def main():
 ## |________|[___][___||__]|_____|  [___]   [___] \__/   '.__.'[\__) )\__.; |  '.__.'_/ '.__.' ##
 ##                                                                        |__]                 ##
 ##                                                                                             ##
-#################################################################################################{"\n"}"""
+#################################################################################################"""
     console = Console()
-    message2 = f"Welcome to LinPrivesque - A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis\nVersion: {__version__}\n\n"
+    message2 = f"\nWelcome to LinPrivesque - A Linux Privilege Escalation Enumeration Tool With Built-In Risk Analysis\nVersion: {__version__}\n\n"
     for char in message1:
         console.print(char, end="")
         time.sleep(0.0005)
